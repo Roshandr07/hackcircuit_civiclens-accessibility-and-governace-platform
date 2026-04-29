@@ -8,9 +8,9 @@ const FeatureLayout = ({ title, sub, children }) => (
     exit={{ opacity: 0, y: -20 }}
     className="max-w-6xl mx-auto pt-32 px-6 pb-20"
   >
-    <div className="mb-12 text-center space-y-2">
-      <h2 className="text-4xl font-bold">{title}</h2>
-      <p className="text-slate-400">{sub}</p>
+    <div className="mb-16 text-center space-y-4">
+      <h2 className="text-5xl lg:text-7xl font-black tracking-tighter text-white">{title}</h2>
+      <p className="text-xl text-slate-400 max-w-2xl mx-auto font-medium">{sub}</p>
     </div>
     {children}
   </motion.div>

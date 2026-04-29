@@ -20,14 +20,14 @@ const SidebarNavItem = ({ to, icon, label, active }) => (
         : 'text-slate-400 hover:text-white hover:bg-white/5'
     }`}
   >
-    <span className={`transition-transform duration-300 ${active ? 'scale-110' : 'group-hover:scale-110'}`}>
+    <span className={`transition-transform duration-300 ${active ? 'scale-125' : 'group-hover:scale-125'}`}>
       {icon}
     </span>
-    <span className="text-sm font-semibold tracking-wide">{label}</span>
+    <span className="text-lg font-black tracking-wide">{label}</span>
   </Link>
 );
 
-const Sidebar = ({ t }) => {
+const Sidebar = ({ t, language, setLanguage }) => {
   const location = useLocation();
   const currentPath = location.pathname;
 
@@ -62,10 +62,24 @@ const Sidebar = ({ t }) => {
         ))}
       </div>
 
-      <div className="mt-auto">
-         <div className="p-4 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 border border-emerald-500/20">
-            <h3 className="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2">CivicLens Pro</h3>
-            <p className="text-[10px] text-slate-400 leading-relaxed">
+      <div className="mt-auto space-y-6">
+        <div className="flex bg-slate-900/50 p-1.5 rounded-2xl border border-white/5">
+          {['en', 'hi', 'kn'].map((lang) => (
+            <button
+              key={lang}
+              onClick={() => setLanguage(lang)}
+              className={`flex-1 py-2.5 rounded-xl text-sm font-black transition-all ${
+                language === lang ? 'bg-emerald-500 text-white shadow-lg' : 'text-slate-500 hover:text-white'
+              }`}
+            >
+              {lang.toUpperCase()}
+            </button>
+          ))}
+        </div>
+
+         <div className="p-5 rounded-3xl bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 border border-emerald-500/20">
+            <h3 className="text-xs font-black text-emerald-400 uppercase tracking-widest mb-2">CivicLens Pro</h3>
+            <p className="text-[11px] text-slate-400 leading-relaxed font-medium">
               Advanced AI features for document verification and government services.
             </p>
          </div>

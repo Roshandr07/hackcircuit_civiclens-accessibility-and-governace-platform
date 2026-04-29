@@ -10,8 +10,8 @@ const NavItem = ({ to, icon, label, active }) => (
       active ? 'bg-emerald-500 text-white shadow-xl scale-105' : 'text-slate-400 hover:text-white hover:bg-white/10'
     }`}
   >
-    <span className="scale-[1.5]">{icon}</span>
-    <span className="text-sm font-black tracking-wide">{label}</span>
+    <span className="scale-[1.2] group-hover:scale-125 transition-transform">{icon}</span>
+    <span className="text-lg font-black tracking-wide">{label}</span>
   </Link>
 );
 
@@ -34,13 +34,14 @@ const Navbar = ({ language, setLanguage, t }) => {
       </div>
       
       <div className="flex items-center gap-6">
-        <div className="hidden lg:flex bg-slate-800/50 p-1 rounded-lg border border-white/5 mr-4">
+        {/* Language Switcher in Navbar (Mobile Only) */}
+        <div className="flex lg:hidden bg-slate-800/50 p-1 rounded-lg border border-white/5">
           {['en', 'hi', 'kn'].map((lang) => (
             <button
               key={lang}
               onClick={() => setLanguage(lang)}
-              className={`px-4 py-1.5 rounded-md text-xs font-bold transition-all ${
-                language === lang ? 'bg-emerald-500 text-white shadow-lg' : 'text-slate-400 hover:text-white'
+              className={`px-4 py-2 rounded-md text-xs font-black transition-all ${
+                language === lang ? 'bg-emerald-500 text-white shadow-lg' : 'text-slate-500 hover:text-white'
               }`}
             >
               {lang.toUpperCase()}
@@ -80,9 +81,9 @@ const Navbar = ({ language, setLanguage, t }) => {
           )}
           
           <div className="lg:hidden flex flex-col gap-3">
-             <NavItem to="/chat" icon={<Mic size={14}/>} label={t.navChat} active={currentPath === '/chat'} />
-             <NavItem to="/document" icon={<Upload size={14}/>} label={t.navDocs} active={currentPath === '/document'} />
-             <NavItem to="/portals" icon={<ExternalLink size={14}/>} label={t.navPortals} active={currentPath === '/portals'} />
+             <NavItem to="/chat" icon={<Mic size={20}/>} label={t.navChat} active={currentPath === '/chat'} />
+             <NavItem to="/document" icon={<Upload size={20}/>} label={t.navDocs} active={currentPath === '/document'} />
+             <NavItem to="/portals" icon={<ExternalLink size={20}/>} label={t.navPortals} active={currentPath === '/portals'} />
           </div>
         </div>
       </div>

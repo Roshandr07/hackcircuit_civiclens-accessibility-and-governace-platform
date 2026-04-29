@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Shield, ChevronRight } from 'lucide-react';
+import { Sparkles, Shield, ChevronRight, UploadCloud, CheckCircle } from 'lucide-react';
 import axios from 'axios';
 import FeatureLayout from './FeatureLayout';
 
@@ -16,6 +16,30 @@ const EligibilityPage = ({ t }) => {
   });
   const [results, setResults] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  // New states for the application feature
+  const [activeApp, setActiveApp] = useState(null);
+  const [uploadStatus, setUploadStatus] = useState('idle'); // idle, uploading, success
+  const [appId, setAppId] = useState(null);
+
+  const handleApplyClick = (schemeName) => {
+    setActiveApp(activeApp === schemeName ? null : schemeName);
+    setUploadStatus('idle');
+    setAppId(null);
+  };
+
+  const handleSimulateUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploadStatus('uploading');
+    
+    // Simulate network delay for upload
+    setTimeout(() => {
+      setUploadStatus('success');
+      setAppId(`APP-${Math.floor(Math.random() * 1000000)}`);
+    }, 2000);
+  };
 
   const handleCheck = async () => {
     if (!formData.income) {
@@ -145,6 +169,59 @@ const EligibilityPage = ({ t }) => {
                     </span>
                   </div>
                   <p className="text-xs text-slate-400 leading-relaxed font-medium">{res.reason}</p>
+                  
+                  {/* Direct Application Feature */}
+                  {res.is_eligible && (
+                    <div className="mt-4">
+                      <button 
+                        onClick={() => handleApplyClick(res.name)}
+                        className="text-sm font-bold bg-emerald-500/20 text-emerald-400 py-2 px-4 rounded-xl hover:bg-emerald-500/30 transition-colors flex items-center gap-2"
+                      >
+                        {activeApp === res.name ? "Cancel Application" : "Apply Directly"}
+                        {activeApp !== res.name && <ChevronRight size={16} />}
+                      </button>
+
+                      {activeApp === res.name && (
+                        <motion.div 
+                          initial={{ opacity: 0, height: 0 }} 
+                          animate={{ opacity: 1, height: 'auto' }} 
+                          className="mt-4 p-4 border border-emerald-500/30 rounded-2xl bg-black/20 overflow-hidden"
+                        >
+                          {uploadStatus === 'idle' && (
+                            <div className="border-2 border-dashed border-emerald-500/30 rounded-xl p-6 text-center hover:border-emerald-500/50 transition-colors relative cursor-pointer group">
+                              <input 
+                                type="file" 
+                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                                onChange={handleSimulateUpload}
+                              />
+                              <UploadCloud className="mx-auto text-emerald-400 mb-2 group-hover:scale-110 transition-transform" size={32} />
+                              <p className="text-sm text-slate-300 font-medium">Click or drag documents to upload</p>
+                              <p className="text-xs text-slate-500 mt-1">Supports PDF, JPG, PNG</p>
+                            </div>
+                          )}
+
+                          {uploadStatus === 'uploading' && (
+                            <div className="flex flex-col items-center justify-center p-6 space-y-3">
+                              <Sparkles className="animate-spin text-emerald-400" size={32} />
+                              <p className="text-sm font-bold text-emerald-400 animate-pulse">Uploading & Verifying...</p>
+                            </div>
+                          )}
+
+                          {uploadStatus === 'success' && (
+                            <div className="flex flex-col items-center justify-center p-6 space-y-2">
+                              <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring" }}>
+                                <CheckCircle className="text-emerald-400" size={40} />
+                              </motion.div>
+                              <p className="text-lg font-bold text-white">Application Submitted!</p>
+                              <p className="text-sm text-slate-400">
+                                Tracking ID: <span className="text-emerald-400 font-black">{appId}</span>
+                              </p>
+                            </div>
+                          )}
+                        </motion.div>
+                      )}
+                    </div>
+                  )}
                 </motion.div>
               ))}
             </div>

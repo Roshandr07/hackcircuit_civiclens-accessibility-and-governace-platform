@@ -19,7 +19,7 @@ import Register from './components/Register';
 
 const translations = {
   en: {
-    heroTitle: "Simplify Government Services",
+    heroTitle: "Welcome to CivicLens AI",
     heroSub: "CivicLens AI makes it easier for every citizen to understand and access essential documents and services through advanced artificial intelligence.",
     getStarted: "Get Started",
     navChat: "Chat",
@@ -64,7 +64,7 @@ const translations = {
     calendarSub: "Deadlines for renewals, applications, and payments."
   },
   hi: {
-    heroTitle: "सरकारी सेवाओं को सरल बनाएं",
+    heroTitle: "CivicLens AI में आपका स्वागत है",
     heroSub: "CivicLens AI उन्नत कृत्रिम बुद्धिमत्ता (AI) के माध्यम से प्रत्येक नागरिक के लिए आवश्यक दस्तावेजों और सेवाओं को समझना और उन तक पहुँचना आसान बनाता है।",
     getStarted: "शुरू करें",
     navChat: "चैट",
@@ -109,7 +109,7 @@ const translations = {
     calendarSub: "नवीनीकरण, आवेदन और भुगतान की समय सीमा।"
   },
   kn: {
-    heroTitle: "ಸರ್ಕಾರಿ ಸೇವೆಗಳನ್ನು ಸರಳಗೊಳಿಸಿ",
+    heroTitle: "CivicLens AI ಗೆ ಸುಸ್ವಾಗತ",
     heroSub: "CivicLens AI ಸುಧಾರಿತ ಕೃತಕ ಬುದ್ಧಿಮತ್ತೆಯ ಮೂಲಕ ಪ್ರತಿಯೊಬ್ಬ ನಾಗರಿಕರಿಗೆ ಅಗತ್ಯ ದಾಖಲೆಗಳು ಮತ್ತು ಸೇವೆಗಳನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು ಮತ್ತು ಪ್ರವೇಶಿಸಲು ಸುಲಭಗೊಳಿಸುತ್ತದೆ.",
     getStarted: "ಪ್ರಾರಂಭಿಸಿ",
     navChat: "ಚಾಟ್",
@@ -173,7 +173,7 @@ function App() {
   
   return (
     <div className="min-h-screen bg-[#020617]">
-      <Sidebar t={t} />
+      <Sidebar t={t} language={language} setLanguage={setLanguage} />
       
       <div className="lg:pl-64 flex flex-col min-h-screen">
         <Navbar language={language} setLanguage={setLanguage} t={t} />
